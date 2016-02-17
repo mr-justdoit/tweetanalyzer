@@ -25,13 +25,11 @@ def getAPI(consumer_key, consumer_secret, access_token, access_token_secret):
     auth = twitterAuth(consumer_key, consumer_secret, access_token, access_token_secret)
     return tweepy.API(auth, parser=tweepy.parsers.JSONParser())
 
-def getTextsOnTweets(api):
-    results = api.search(q=query,rpp=100)
+def getTextsOnTweets(api, query, since_id=1):
+    results = api.search(q=query,count=100,since_id=since_id)
     textdata = ""
-
     for i in range(0, len(results["statuses"])):
         textdata += results["statuses"][i]["text"]
-
     return textdata
 
 def textdataToArray(textdata):
@@ -45,11 +43,11 @@ def countWords(words):
     return dict(zip(keys, values))
     
 api = getAPI(consumer_key, consumer_secret, access_token, access_token_secret)
-textdata = getTextsOnTweets(api)
+textdata = getTextsOnTweets(api, query)
 words = textdataToArray(textdata)
 dictionary = countWords(words)
 
-print(dictionary)
+print(json.dumps(dictionary))
 
 
 #t = Tokenizer()
