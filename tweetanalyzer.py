@@ -2,7 +2,7 @@
 from __future__ import absolute_import, print_function
 from janome.tokenizer import Tokenizer
 from itertools import groupby
-import tweepy, json, sys, re, yaml, getopt
+import tweepy, json, sys, re, yaml, getopt, pprint
 
 with open('data.json') as data_file:
     data = json.load(data_file)
@@ -40,7 +40,7 @@ def output_textdata(api, query, count):
     textdata = text_on_tweet(api, query, count)
     words = text_to_array(textdata)
     dictionary = count_words(words)
-    print(yaml.dump(dictionary,default_flow_style=False))
+    return yaml.dump(dictionary,default_flow_style=False)
 
     
 def output_media(api, query, count):
@@ -51,19 +51,21 @@ def output_media(api, query, count):
             for j in range(0, len(results["statuses"][i]["entities"]["media"])):
                 media += results["statuses"][i]["entities"]["media"][j]["media_url_https"]
                 media += "\n"
-    print(media)
+    return media
     
 def output_raw(api, query, count):
-    print(api.search(q=query, count=count))
+    return api.search(q=query, count=count)
 
 def output_data(api, query, count, metatype):
+    d = ""
     if metatype == "t":
-        output_textdata(api, query, count)
+        d = output_textdata(api, query, count)
     elif metatype == "r":
-        output_raw(api, query, count)
+        d = output_raw(api, query, count)
     elif metatype == "m":
-        output_media(api, query, count)
+        d = output_media(api, query, count)
 
+    return d
 
 #t = Tokenizer()
 #tokens = t.tokenize(textdata)
@@ -99,7 +101,7 @@ def main():
     
     api = load_api(consumer_key, consumer_secret, access_token, access_token_secret)
 
-    output_data(api, query, count, metatype)
+    print(output_data(api, query, count, metatype))
 
 if __name__ == "__main__":
     main()
