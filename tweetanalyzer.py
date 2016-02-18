@@ -2,7 +2,7 @@
 from __future__ import absolute_import, print_function
 from janome.tokenizer import Tokenizer
 from itertools import groupby
-import tweepy, json, sys, re, yaml, getopt, pprint
+import tweepy, json, sys, re, yaml, getopt, pprint, nltk
 
 with open('data.json') as data_file:
     data = json.load(data_file)
@@ -18,8 +18,23 @@ def load_api(consumer_key, consumer_secret, access_token, access_token_secret):
     auth = twitter_auth(consumer_key, consumer_secret, access_token, access_token_secret)
     return tweepy.API(auth, parser=tweepy.parsers.JSONParser())
 
-def text_on_tweet(api, query, count):
-    results = api.search(q=query, count=count, lang="en")
+
+def filter(text):
+    """
+    :param text: str
+    :rtype : str
+    """
+    text = re.sub(r'[a-zA-Z0-9¥"¥.¥,¥@]+', '', text)
+    text = re.sub(r'[!"“#$%&()\*\+\-\.,\/:;<=>?@\[\\\]^_`{|}~]', '', text)
+    text = re.sub(r'[\n|\r|\t]', '', text)
+    
+    jp_chartype_tokenizer = nltk.RegexpTokenizer(u'([ぁ-んー]+|[ァ-ンー]+|[\u4e00-\u9FFF]+|[ぁ-んァ-ンー\u4e00-\u9FFF]+)')
+    text = "".join(jp_chartype_tokenizer.tokenize(text))
+    return text
+
+
+def text_on_tweet(api, query, count, lang):
+    results = api.search(q=query, count=count, lang=lang)
     textdata = ""
     for i in range(0, len(results["statuses"])):
         textdata += results["statuses"][i]["text"]
@@ -36,8 +51,16 @@ def count_words(words):
     values = [len(list(group)) for key, group in groupby(words)]
     return dict(zip(keys, values))
 
+def output_ja_text(api, query, count):
+    textdata = filter(text_on_tweet(api, query, count, lang="ja"))
+    t = Tokenizer()
+    tokens = t.tokenize(textdata)
+    words = [token.surface for token in tokens]
+    dictionary = count_words(words)
+    return "\n".join("\"%s\": %d" % i for i in dictionary.items())
+    
 def output_textdata(api, query, count):
-    textdata = text_on_tweet(api, query, count)
+    textdata = text_on_tweet(api, query, count, lang="en")
     words = text_to_array(textdata)
     dictionary = count_words(words)
     return yaml.dump(dictionary,default_flow_style=False)
@@ -64,6 +87,8 @@ def output_data(api, query, count, metatype):
         d = output_raw(api, query, count)
     elif metatype == "m":
         d = output_media(api, query, count)
+    elif metatype == "j":
+        d = output_ja_text(api, query, count)
 
     return d
 
