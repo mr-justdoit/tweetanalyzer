@@ -55,7 +55,7 @@ def output_ja_text(api, query, count):
     textdata = filter(text_on_tweet(api, query, count, lang="ja"))
     t = Tokenizer()
     tokens = t.tokenize(textdata)
-    words = [token.surface for token in tokens]
+    words = sorted([token.surface for token in tokens])
     dictionary = count_words(words)
     return "\n".join("\"%s\": %d" % i for i in dictionary.items())
     
