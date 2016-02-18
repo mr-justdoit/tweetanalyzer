@@ -48,7 +48,7 @@ def output_media(api, query, count):
     for i in range(0, len(results["statuses"])):
         if "media" in results["statuses"][i]["entities"]:
             for j in range(0, len(results["statuses"][i]["entities"]["media"])):
-                media += results["statuses"][i]["entities"]["media"][j]["expanded_url"]
+                media += results["statuses"][i]["entities"]["media"][j]["media_url_https"]
                 media += "\n"
     print(media)
     
