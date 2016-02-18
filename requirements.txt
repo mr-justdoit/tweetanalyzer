@@ -1,0 +1,4 @@
+Janome == 0.2.6
+nltk == 3.1
+tweepy == 3.5.0
+PyYAML == 3.11
