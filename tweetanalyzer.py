@@ -2,7 +2,7 @@
 from __future__ import absolute_import, print_function
 from janome.tokenizer import Tokenizer
 from itertools import groupby
-import tweepy, json, sys, re
+import tweepy, json, sys, re, yaml
 
 with open('data.json') as data_file:
     data = json.load(data_file)
@@ -25,15 +25,16 @@ def getAPI(consumer_key, consumer_secret, access_token, access_token_secret):
     auth = twitterAuth(consumer_key, consumer_secret, access_token, access_token_secret)
     return tweepy.API(auth, parser=tweepy.parsers.JSONParser())
 
-def getTextsOnTweets(api, query, since_id=1):
-    results = api.search(q=query,count=100,since_id=since_id)
+def getTextsOnTweets(api, query):
+    results = api.search(q=query, count="100", lang="en")
     textdata = ""
     for i in range(0, len(results["statuses"])):
         textdata += results["statuses"][i]["text"]
+        textdata += ' '
     return textdata
 
 def textdataToArray(textdata):
-    textdata = re.sub(r'https?:\/\/.*[\r\n]*', '', textdata, flags=re.MULTILINE)
+    #textdata = re.sub(r'https?:\/\/.*[\r\n]*', '', textdata, flags=re.MULTILINE)
     textdata = sorted(textdata.split(' '))
     return textdata
 
@@ -46,8 +47,8 @@ api = getAPI(consumer_key, consumer_secret, access_token, access_token_secret)
 textdata = getTextsOnTweets(api, query)
 words = textdataToArray(textdata)
 dictionary = countWords(words)
+print(yaml.dump(dictionary,default_flow_style=False))
 
-print(json.dumps(dictionary))
 
 
 #t = Tokenizer()
