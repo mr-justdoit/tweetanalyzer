@@ -35,7 +35,7 @@ def getTextsOnTweets(api, query):
 
 def textdataToArray(textdata):
     #textdata = re.sub(r'https?:\/\/.*[\r\n]*', '', textdata, flags=re.MULTILINE)
-    textdata = sorted(textdata.split(' '))
+    textdata = sorted(textdata.split())
     return textdata
 
 def countWords(words):
