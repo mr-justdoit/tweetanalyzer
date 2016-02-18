@@ -18,7 +18,7 @@ def load_api(consumer_key, consumer_secret, access_token, access_token_secret):
     auth = twitter_auth(consumer_key, consumer_secret, access_token, access_token_secret)
     return tweepy.API(auth, parser=tweepy.parsers.JSONParser())
 
-def text_on_tweet(api, query, count="100"):
+def text_on_tweet(api, query, count):
     results = api.search(q=query, count=count, lang="en")
     textdata = ""
     for i in range(0, len(results["statuses"])):
@@ -42,6 +42,7 @@ def output_textdata(api, query, count):
     dictionary = count_words(words)
     print(yaml.dump(dictionary,default_flow_style=False))
 
+    
 def output_media(api, query, count):
     results = api.search(q=query, count=count)
     media = ""
@@ -52,8 +53,8 @@ def output_media(api, query, count):
                 media += "\n"
     print(media)
     
-def output_raw(api, query, count="100"):
-    print(api.search(q=query, count=count, lang="en"))
+def output_raw(api, query, count):
+    print(api.search(q=query, count=count))
 
 def output_data(api, query, count, metatype):
     if metatype == "t":
@@ -69,13 +70,6 @@ def output_data(api, query, count, metatype):
 
     
 def main():
-    consumer_key=data["consumer"]["key"]
-    consumer_secret=data["consumer"]["secret"]
-    
-    access_token=data["token"]["key"]
-    access_token_secret=data["token"]["secret"]
-    
-    api = load_api(consumer_key, consumer_secret, access_token, access_token_secret)
 
     try:
         opts, args = getopt.getopt(sys.argv[1:], 'q:t:c:h')
@@ -96,6 +90,14 @@ def main():
             metatype = a
         elif o == "-c":
             count = a
+            
+    consumer_key=data["consumer"]["key"]
+    consumer_secret=data["consumer"]["secret"]
+
+    access_token=data["token"]["key"]
+    access_token_secret=data["token"]["secret"]
+    
+    api = load_api(consumer_key, consumer_secret, access_token, access_token_secret)
 
     output_data(api, query, count, metatype)
 
