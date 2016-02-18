@@ -1,5 +1,3 @@
-? ''
-: 4
 '#Africa.': 1
 '#AnswerTime': 6
 '#AnswerTime.': 1
@@ -14,7 +12,7 @@
 '#Cygnus,': 1
 '#Earth.': 1
 '#Egypt!': 1
-'#GoodNight': 8
+'#GoodNight': 9
 '#ICYMI:': 2
 '#ISS': 1
 '#Japan': 1
@@ -23,17 +21,10 @@
 '#PresidentsDay,': 1
 '#Principia': 2
 '#SpaceFlowers': 1
-? '#SpaceToGround
-
-  https://t.co/Qqv5X8uqBT'
-: 1
+'#SpaceToGround': 1
 '#SpotTheStation': 1
 '#Starliner': 1
 '#StateOfNASA': 5
-? '#StateOfNASA
-
-  https://t.co/E2Bhmv3EpY'
-: 1
 '#StateOfNASA?': 1
 '#Sunrise!': 1
 '#TheMartian': 1
@@ -43,25 +34,19 @@
 '#WomenInSTEM': 3
 '#WomenInSTEM:': 1
 '#WomenInScience.': 1
-'#YearInSpace': 17
+'#YearInSpace': 18
 '#YearInSpace!': 1
 '#YearInSpace.': 1
 '#astronomy': 1
 '#aurora': 1
 '#polarvortex': 1
+'#stars': 1
 '#stars!': 1
 '#sunset': 1
 '#sunset.': 2
-? '#timelapse
-
-  https://t.co/1PPRkUph8W'
-: 1
-? '#timelapse
-
-  https://t.co/XijV5E1pI0'
-: 1
+'#timelapse': 2
 $790: 1
-'&amp;': 9
+'&amp;': 8
 '''The': 1
 '''rose''': 1
 '-': 1
@@ -93,6 +78,7 @@ $790: 1
 '324.': 1
 '325.': 1
 '326.': 1
+'327.': 1
 '3:45': 1
 3:45am: 3
 3pm: 2
@@ -118,10 +104,7 @@ $790: 1
 '@NASA''s': 1
 '@NASAAero': 1
 '@NASANewHorizons': 1
-? '@NASASunEarth
-
-  https://t.co/vW7EOh5Els'
-: 1
+'@NASASunEarth': 1
 '@NASA_Johnson:': 1
 '@NASA_Langley:': 1
 '@NASA_Marshall:': 1
@@ -136,7 +119,7 @@ $790: 1
 '@Space_Station:': 2
 '@Space_Station?': 1
 '@StationCDRKelly': 6
-'@StationCDRKelly:': 18
+'@StationCDRKelly:': 19
 "@StationCDRKelly\u2019s": 1
 '@ThirdRockRadio': 1
 '@TsMarinov': 1
@@ -155,11 +138,11 @@ $790: 1
 '@gov:': 2
 '@lornawilkinson': 1
 '@space_station': 2
-'@space_station!': 9
+'@space_station!': 10
 '@tumblr': 1
 '@tumblr:': 2
 '@twitter': 1
-A: 2
+A: 3
 ASTRO-H: 3
 ASTRO-H!: 1
 ASTRO-H.: 1
@@ -182,7 +165,7 @@ Cloud: 1
 Colors: 1
 Congratulations: 1
 DC: 1
-Day: 10
+Day: 11
 Day!: 2
 Day,: 2
 Day.: 1
@@ -199,6 +182,7 @@ EST: 1
 ET: 7
 ET.: 2
 'ET:': 2
+Earth: 1
 'Earth:': 1
 Einstein's: 1
 "Einstein\u2019s": 1
@@ -226,7 +210,6 @@ If: 1
 Imagination: 1
 In: 2
 International: 1
-Investing: 1
 Invisible: 1
 It: 1
 It's: 2
@@ -269,7 +252,7 @@ Q?: 1
 Qs: 3
 Qs!: 1
 'Qs:': 2
-RT: 37
+RT: 38
 Read: 2
 'Recap:': 1
 Refreshing: 1
@@ -293,7 +276,7 @@ Submit: 1
 Thank: 1
 That: 1
 That's: 1
-The: 2
+The: 1
 They: 1
 This: 2
 'Thurs.:': 1
@@ -316,7 +299,7 @@ Watch: 4
 We: 4
 We're: 1
 "We\u2019re": 1
-What: 5
+What: 6
 What's: 1
 Who's: 1
 X-ray: 1
@@ -330,11 +313,12 @@ aeronautics: 1
 after: 1
 afternoon: 1
 agency.: 1
+aglow: 1
 aircraft: 3
 alien: 1
 all: 5
 an: 5
-and: 9
+and: 10
 another: 2
 answer: 1
 answered: 1
@@ -362,7 +346,6 @@ astronauts.: 1
 at: 20
 atmosphere: 1
 atop: 1
-'aviation:': 1
 'away:': 1
 bands: 1
 batch: 1
@@ -371,6 +354,7 @@ become: 1
 been: 1
 begins: 1
 being: 1
+below.: 1
 better: 1
 between: 1
 big: 1
@@ -398,7 +382,6 @@ close: 2
 clouds: 1
 clouds,: 1
 cold: 1
-coming.: 1
 comm: 1
 common?: 1
 continues.: 1
@@ -443,14 +426,12 @@ ever: 2
 experimental: 1
 exploration: 3
 eye: 2
-? "fans\U0001F30C\n\nWhat"
-: 1
+"fans\U0001F30C": 1
 "fans\U0001F30C:": 1
 fave: 1
 feature: 1
 find: 2
 first: 1
-flight: 1
 'flight:': 1
 florist.: 1
 flowering: 1
@@ -459,9 +440,9 @@ for: 14
 forget: 2
 four: 1
 friendly.: 1
-from: 22
-full: 1
-future: 2
+from: 23
+full: 2
+future: 1
 future.: 1
 galaxies: 1
 generation: 1
@@ -477,7 +458,6 @@ got: 1
 grads,: 2
 gravitational: 2
 great: 2
-greener,: 1
 ground.: 1
 grow: 1
 growing: 1
@@ -519,13 +499,11 @@ https://t.co/0R3OdLc8Oc: 1
 https://t.co/0VJHqWt8hl: 1
 https://t.co/0WANuNodqV: 1
 https://t.co/0lPXEp0VAH: 1
+https://t.co/1PPRkUph8W: 1
 https://t.co/1fvBh35K9E: 1
 https://t.co/1gxbC6u5nh: 1
 https://t.co/32ARVdft8M: 2
-? 'https://t.co/3FZ9GfljQE
-
-  https://t.co/gnpSaAmUSG'
-: 1
+https://t.co/3FZ9GfljQE: 1
 https://t.co/3i3KY6QcGS: 1
 https://t.co/4onegw04zE: 1
 https://t.co/4xzn5Xfuc6: 1
@@ -534,8 +512,7 @@ https://t.co/5YwQUPlhEI: 2
 https://t.co/5tAa4MJZvM: 1
 https://t.co/5uRqzNNUFL: 1
 https://t.co/6BFIkvLBEu: 1
-? "https://t.co/6ONemF7fGc\nhttps\u2026"
-: 1
+https://t.co/6ONemF7fGc: 1
 https://t.co/6gKgSBEZzl: 1
 https://t.co/6iuDleNG4K: 1
 https://t.co/6nmhXKrcP0: 1
@@ -549,10 +526,8 @@ https://t.co/CbB0HkyIIb: 1
 https://t.co/CcWpjCsVfA: 1
 "https://t.co/DpkE\u2026": 1
 https://t.co/E1QJ4gcWFS: 1
-? 'https://t.co/F9zSbGKjUj
-
-  https://t.co/vgxAuVi2LA'
-: 1
+https://t.co/E2Bhmv3EpY: 1
+https://t.co/F9zSbGKjUj: 1
 https://t.co/FcktAy5YoE: 1
 https://t.co/GPrSZW9A6A: 1
 https://t.co/GVzWzGdsZf: 3
@@ -572,13 +547,13 @@ https://t.co/OSJQWzc6rE: 1
 https://t.co/OfY6yYmYCH: 1
 https://t.co/OhiYGziHjX: 1
 https://t.co/PoY1BvpQzZ: 1
+https://t.co/Qqv5X8uqBT: 1
 https://t.co/Qr4CqJx8Bs: 1
 https://t.co/QtBsd7al5f: 1
 https://t.co/Reo96XrhdX: 1
 https://t.co/Rivqtu76P3: 1
 https://t.co/Rl2i3KzN0V: 1
 https://t.co/Rok59be0iQ: 1
-https://t.co/RpbPoBkOoY: 1
 https://t.co/SBwFSPr2gt: 1
 https://t.co/SnrNMtYvPQ: 1
 https://t.co/TdcGd9G8FZ: 1
@@ -591,10 +566,12 @@ https://t.co/WSoiwbl5es: 1
 https://t.co/Wmjm9TiGpM: 1
 https://t.co/WnCAiXRb6j: 1
 https://t.co/X9Eyz79vHd: 3
+https://t.co/XijV5E1pI0: 1
 https://t.co/YA6IDs9yuI: 1
 "https://t.co/YNx8\u2026": 1
 https://t.co/YU77HqcEJp: 1
 https://t.co/Z94gKO9EfO: 1
+"https://t.co/Zab4eTA\u2026": 1
 https://t.co/ZlccgtarH1: 1
 https://t.co/Zt4wrYvf82: 1
 https://t.co/a4tBL3JKfi: 1
@@ -612,9 +589,10 @@ https://t.co/f7PZfY6BP0: 1
 https://t.co/fYgM84vkMQ: 1
 https://t.co/ftVbGeen4N: 1
 https://t.co/gR7kyeUPRt: 1
+https://t.co/gWVUuIhOHk: 1
 https://t.co/gWVUuIzpyS: 1
 https://t.co/gcmZbsMskY: 1
-https://t.co/giIyomqLT0: 1
+https://t.co/gnpSaAmUSG: 1
 https://t.co/hOd5eyIq9i: 1
 https://t.co/hTHzT4UPdp: 1
 https://t.co/hyuifWSlWL: 1
@@ -651,6 +629,8 @@ https://t.co/uSnwzEtdGa: 1
 https://t.co/uaWeAlrEk7: 1
 https://t.co/ujnMDxjS6m: 1
 https://t.co/uuX430W1wA: 1
+https://t.co/vW7EOh5Els: 1
+https://t.co/vgxAuVi2LA: 1
 https://t.co/wQNZi5z0QS: 1
 https://t.co/wmDjH28zej: 1
 https://t.co/xOvJQC0zDx: 1
@@ -664,20 +644,21 @@ https://t.co/z9YiQwHL6g: 1
 "https://t\u2026": 4
 "https:/\u2026": 1
 "https:\u2026": 1
+"https\u2026": 1
 "htt\u2026": 2
 "ht\u2026": 3
 icy: 1
 illuminated: 1
 impact: 2
 implants,: 1
-in: 20
+in: 19
 in?: 1
 increases: 1
 inside: 1
 inspire: 1
 intimately: 1
 into: 1
-is: 19
+is: 18
 is.: 1
 it: 5
 it,: 1
@@ -722,11 +703,7 @@ memories.: 1
 million: 1
 minutes!: 1
 mission: 2
-'mission:': 1
-? 'mission:
-
-  https://t.co/gWVUuIhOHk'
-: 1
+'mission:': 2
 missions: 2
 missions!: 1
 moderates: 1
@@ -788,7 +765,6 @@ propulsion-powered: 1
 pumps,: 1
 questions: 2
 questions.: 1
-quieter: 1
 quieter,: 1
 razor-thin: 1
 reach: 1
@@ -806,7 +782,6 @@ right: 1
 rings: 1
 rise?: 1
 rocket: 1
-safer: 1
 sails: 1
 'satellites:': 1
 'scale:': 1
@@ -823,6 +798,7 @@ sets: 1
 short: 1
 shows: 1
 sight: 1
+sky: 1
 sky!: 1
 sleep.: 1
 small: 1
