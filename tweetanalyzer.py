@@ -18,8 +18,8 @@ def load_api(consumer_key, consumer_secret, access_token, access_token_secret):
     auth = twitter_auth(consumer_key, consumer_secret, access_token, access_token_secret)
     return tweepy.API(auth, parser=tweepy.parsers.JSONParser())
 
-def text_on_tweet(api, query):
-    results = api.search(q=query, count="100", lang="en")
+def text_on_tweet(api, query, count="100"):
+    results = api.search(q=query, count=count, lang="en")
     textdata = ""
     for i in range(0, len(results["statuses"])):
         textdata += results["statuses"][i]["text"]
@@ -36,21 +36,32 @@ def count_words(words):
     values = [len(list(group)) for key, group in groupby(words)]
     return dict(zip(keys, values))
 
-
-def output_textdata(api, query):
-    textdata = text_on_tweet(api, query)
+def output_textdata(api, query, count):
+    textdata = text_on_tweet(api, query, count)
     words = text_to_array(textdata)
     dictionary = count_words(words)
     print(yaml.dump(dictionary,default_flow_style=False))
 
-def output_raw(api, query):
-    print(api.search(q=query, count="100", lang="en"))
+def output_media(api, query, count):
+    results = api.search(q=query, count=count)
+    media = ""
+    for i in range(0, len(results["statuses"])):
+        if "media" in results["statuses"][i]["entities"]:
+            for j in range(0, len(results["statuses"][i]["entities"]["media"])):
+                media += results["statuses"][i]["entities"]["media"][j]["expanded_url"]
+                media += "\n"
+    print(media)
     
-def output_data(api, query, metatype):
+def output_raw(api, query, count="100"):
+    print(api.search(q=query, count=count, lang="en"))
+
+def output_data(api, query, count, metatype):
     if metatype == "t":
-        output_textdata(api, query)
+        output_textdata(api, query, count)
     elif metatype == "r":
-        output_raw(api, query)
+        output_raw(api, query, count)
+    elif metatype == "m":
+        output_media(api, query, count)
 
 
 #t = Tokenizer()
@@ -67,7 +78,7 @@ def main():
     api = load_api(consumer_key, consumer_secret, access_token, access_token_secret)
 
     try:
-        opts, args = getopt.getopt(sys.argv[1:], 'q:t:h')
+        opts, args = getopt.getopt(sys.argv[1:], 'q:t:c:h')
     except getopt.GetoptError as err:
         print(str(err))
         usage()
@@ -76,14 +87,17 @@ def main():
     #print(opts)
     query = ""
     metatype = 't'
+    count = 100
 
     for o, a in opts:
         if o == "-q":
             query = a
         elif o == "-t":
             metatype = a
+        elif o == "-c":
+            count = a
 
-    output_data(api, query, metatype)
+    output_data(api, query, count, metatype)
 
 if __name__ == "__main__":
     main()
