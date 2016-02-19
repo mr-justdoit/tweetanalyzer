@@ -1,6 +1,6 @@
 # tweetanalyzer
 
-A CLI tool for data mining on twetter. 
+A CLI tool for data mining on twitter. 
 
 
 ## Command Examples
