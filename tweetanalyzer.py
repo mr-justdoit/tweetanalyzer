@@ -30,12 +30,16 @@ def filter(text):
     return text
 
 
-def text_on_tweet(api, query, count, lang):
+def text_on_tweet(api, query, count, page, lang):
     results = api.search(q=query, count=count, lang=lang)
     textdata = ""
-    for i in range(0, len(results["statuses"])):
-        textdata += results["statuses"][i]["text"]
-        textdata += ' '
+    max_id = 0
+    for j in range(0, page):
+        for i in range(0, len(results["statuses"])):
+            textdata += results["statuses"][i]["text"]
+            textdata += ' '
+            max_id = results["statuses"][i]["id"]
+        results = api.search(q=query, count=count, lang=lang, max_id=max_id-1)
     return textdata
 
 def text_to_array(textdata):
@@ -48,59 +52,66 @@ def count_words(words):
     values = [len(list(group)) for key, group in groupby(words)]
     return dict(zip(keys, values))
 
-def output_ja_text(api, query, count):
-    textdata = filter(text_on_tweet(api, query, count, lang="ja"))
+def output_ja_text(api, query, count, page):
+    textdata = filter(text_on_tweet(api, query, count, page, lang="ja"))
     t = Tokenizer()
     tokens = t.tokenize(textdata)
     words = sorted([token.surface for token in tokens])
     dictionary = count_words(words)
     return pyaml.dump(dictionary, sys.stdout, vspacing=[0, 1])
     
-def output_textdata(api, query, count):
-    textdata = text_on_tweet(api, query, count, lang="en")
+def output_textdata(api, query, count, page):
+    textdata = text_on_tweet(api, query, count, page, lang="en")
     words = text_to_array(textdata)
     dictionary = count_words(words)
     return pyaml.dump(dictionary, sys.stdout, vspacing=[0, 1])
 
     
-def output_media(api, query, count):
+def output_media(api, query, count, page):
     results = api.search(q=query, count=count)
     media = ""
-    for i in range(0, len(results["statuses"])):
-        if "media" in results["statuses"][i]["entities"]:
-            for j in range(0, len(results["statuses"][i]["entities"]["media"])):
-                media += results["statuses"][i]["entities"]["media"][j]["media_url_https"]
-                media += "\n"
+    max_id = 0
+    for k in range(0, page):
+        for i in range(0, len(results["statuses"])):
+            if "media" in results["statuses"][i]["entities"]:
+                for j in range(0, len(results["statuses"][i]["entities"]["media"])):
+                    media += results["statuses"][i]["entities"]["media"][j]["media_url_https"]
+                    media += "\n"
+            max_id = results["statuses"][i]["id"]
+        results = api.search(q=query, count=count, max_id=max_id-1)
     return media
     
 def output_raw(api, query, count):
     return pyaml.dump(api.search(q=query, count=count), sys.stdout, vspacing=[0, 1])
 
 
-def output_simplify(api, query, count):
+def output_simplify(api, query, count, page):
     results = api.search(q=query, count=count)
     tweets = []
-    for i in range(0, len(results["statuses"])):
-        who   = results["statuses"][i]["user"]["screen_name"]
-        what  = results["statuses"][i]["text"]
-        where = results["statuses"][i]["geo"]
-        when  = results["statuses"][i]["created_at"]
-        tweets.append({"who":who, "what":what, "where":where, "when":when})
+    for j in range(0, page):
+        for i in range(0, len(results["statuses"])):
+            who   = results["statuses"][i]["user"]["screen_name"]
+            what  = results["statuses"][i]["text"]
+            where = results["statuses"][i]["geo"]
+            when  = results["statuses"][i]["created_at"]
+            tweets.append({"who":who, "what":what, "where":where, "when":when})
+            max_id = results["statuses"][i]["id"]
+        results = api.search(q=query, count=count, max_id=max_id-1)
     return pyaml.dump(tweets, sys.stdout, vspacing=[0,1])
 
 
-def output_data(api, query, count, metatype):
+def output_data(api, query, count, page, metatype):
     d = ""
     if metatype == "t":
-        d = output_textdata(api, query, count)
+        d = output_textdata(api, query, count, page)
     elif metatype == "r":
         d = output_raw(api, query, count)
     elif metatype == "m":
-        d = output_media(api, query, count)
+        d = output_media(api, query, count, page)
     elif metatype == "j":
-        d = output_ja_text(api, query, count)
+        d = output_ja_text(api, query, count, page)
     elif metatype == "s":
-        d = output_simplify(api, query, count)
+        d = output_simplify(api, query, count, page)
 
     return d
 
@@ -108,27 +119,30 @@ def output_data(api, query, count, metatype):
 def main():
     
     try:
-        opts, args = getopt.getopt(sys.argv[1:], 'q:t:c:h')
+        opts, args = getopt.getopt(sys.argv[1:], 'q:t:c:p:h')
     except getopt.GetoptError as err:
         print(str(err))
         usage()
         sys.exit(2)
-        
+    
     query = ""
     metatype = 't'
     count = 1
-
+    page = 1
+    
     for o, a in opts:
         if o == "-q":
             query = a
         elif o == "-t":
             metatype = a
         elif o == "-c":
-            count = a
+            count = int(a)
+        elif o == "-p":
+            page = int(a)
     
     api = load_api(data["consumer"]["key"], data["consumer"]["secret"], data["token"]["key"], data["token"]["secret"])
 
-    print(u"%s" % output_data(api, query, count, metatype))
+    print(u"%s" % output_data(api, query, count, page, metatype))
 
 if __name__ == "__main__":
     main()
