@@ -80,6 +80,19 @@ def output_media(api, query, count):
 def output_raw(api, query, count):
     return pyaml.dump(api.search(q=query, count=count), sys.stdout, vspacing=[0, 1])
 
+
+def output_simplify(api, query, count):
+    results = api.search(q=query, count=count)
+    tweets = []
+    for i in range(0, len(results["statuses"])):
+        who   = results["statuses"][i]["user"]["screen_name"]
+        what  = results["statuses"][i]["text"]
+        where = results["statuses"][i]["geo"]
+        when  = results["statuses"][i]["created_at"]
+        tweets.append({"who":who, "what":what, "where":where, "when":when})
+    return pyaml.dump(tweets, sys.stdout, vspacing=[0,1])
+
+
 def output_data(api, query, count, metatype):
     d = ""
     if metatype == "t":
@@ -90,6 +103,8 @@ def output_data(api, query, count, metatype):
         d = output_media(api, query, count)
     elif metatype == "j":
         d = output_ja_text(api, query, count)
+    elif metatype == "s":
+        d = output_simplify(api, query, count)
 
     return d
 
