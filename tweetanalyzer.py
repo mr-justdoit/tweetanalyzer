@@ -21,10 +21,6 @@ def load_api(consumer_key, consumer_secret, access_token, access_token_secret):
 
 
 def filter(text):
-    """
-    :param text: str
-    :rtype : str
-    """
     text = re.sub(r'[a-zA-Z0-9¥"¥.¥,¥@]+', '', text)
     text = re.sub(r'[!"“#$%&()\*\+\-\.,\/:;<=>?@\[\\\]^_`{|}~]', '', text)
     text = re.sub(r'[\n|\r|\t]', '', text)
@@ -108,9 +104,6 @@ def output_data(api, query, count, metatype):
 
     return d
 
-#t = Tokenizer()
-#tokens = t.tokenize(textdata)
-
     
 def main():
     
@@ -121,10 +114,9 @@ def main():
         usage()
         sys.exit(2)
         
-    #print(opts)
     query = ""
     metatype = 't'
-    count = 100
+    count = 1
 
     for o, a in opts:
         if o == "-q":
