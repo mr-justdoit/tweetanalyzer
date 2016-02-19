@@ -3,7 +3,7 @@
 from __future__ import absolute_import, print_function
 from janome.tokenizer import Tokenizer
 from itertools import groupby
-import tweepy, json, sys, re, yaml, getopt, pprint, nltk
+import tweepy, json, sys, re, yaml, getopt, pprint, nltk, codecs, pyaml
 
 with open('data.json') as data_file:
     data = json.load(data_file)
@@ -58,13 +58,13 @@ def output_ja_text(api, query, count):
     tokens = t.tokenize(textdata)
     words = sorted([token.surface for token in tokens])
     dictionary = count_words(words)
-    return "\n".join("\"%s\": %d" % i for i in dictionary.items())
+    return pyaml.dump(dictionary, sys.stdout, vspacing=[0, 1])
     
 def output_textdata(api, query, count):
     textdata = text_on_tweet(api, query, count, lang="en")
     words = text_to_array(textdata)
     dictionary = count_words(words)
-    return yaml.dump(dictionary,default_flow_style=False)
+    return pyaml.dump(dictionary, sys.stdout, vspacing=[0, 1])
 
     
 def output_media(api, query, count):
@@ -78,7 +78,7 @@ def output_media(api, query, count):
     return media
     
 def output_raw(api, query, count):
-    return api.search(q=query, count=count)
+    return pyaml.dump(api.search(q=query, count=count), sys.stdout, vspacing=[0, 1])
 
 def output_data(api, query, count, metatype):
     d = ""
@@ -98,7 +98,7 @@ def output_data(api, query, count, metatype):
 
     
 def main():
-
+    
     try:
         opts, args = getopt.getopt(sys.argv[1:], 'q:t:c:h')
     except getopt.GetoptError as err:
@@ -118,16 +118,10 @@ def main():
             metatype = a
         elif o == "-c":
             count = a
-            
-    consumer_key=data["consumer"]["key"]
-    consumer_secret=data["consumer"]["secret"]
-
-    access_token=data["token"]["key"]
-    access_token_secret=data["token"]["secret"]
     
-    api = load_api(consumer_key, consumer_secret, access_token, access_token_secret)
+    api = load_api(data["consumer"]["key"], data["consumer"]["secret"], data["token"]["key"], data["token"]["secret"])
 
-    print(output_data(api, query, count, metatype))
+    print(u"%s" % output_data(api, query, count, metatype))
 
 if __name__ == "__main__":
     main()
