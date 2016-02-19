@@ -1,5 +1,4 @@
 # tweetanalyzer
-======
 
 A CLI tool for data mining on twetter. 
 
