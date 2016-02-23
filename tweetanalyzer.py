@@ -73,7 +73,7 @@ def output_data(api, query, count, page, metatype):
         d = output_media(api, query, count, page)
     elif metatype == "j":
         textdata = text_on_tweet(api, query, count, page, lang="ja")
-        d = output_ja_text(textdata)
+        d = output_ja_text(textdata,["名詞", "動詞"])
     elif metatype == "s":
         d = output_simplify(api, query, count, page)
 
