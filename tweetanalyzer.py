@@ -60,6 +60,22 @@ def output_media(api, query, count, page):
     return print(media)
 
 
+def output_url(api, query, count, page):
+    results = api.search(q=query, count=count)
+    url = ""
+    pid = []
+    for k in range(0, page):
+        for i in range(0, len(results["statuses"])):
+            d = results["statuses"][i]
+            if "urls" in d["entities"]:
+                for j in range(0, len(d["entities"]["urls"])):
+                    url += d["entities"]["urls"][j]["expanded_url"]
+                    url += "\n"
+            pid.append(d["id"])
+        results = api.search(q=query, count=count, max_id=pid.pop() - 1)
+    return print(url)
+
+
 def output_raw(api, query, count):
     return pyaml.dump(
         api.search(q=query,
@@ -79,7 +95,8 @@ def output_simplify(api, query, count, page):
                            "user": d["user"]["screen_name"],
                            "text": d["text"],
                            "geo": d["geo"],
-                           "time": d["created_at"]})
+                           "time": d["created_at"],
+                           "lang": d["lang"]})
         results = api.search(q=query, count=count, max_id=d["id"] - 1)
     return pyaml.dump(tweets, sys.stdout, vspacing=[0, 1])
 
@@ -98,6 +115,8 @@ def output_data(api, query, count, page, metatype):
         d = textmining.output_ja_text(textdata, ["名詞"])
     elif metatype == "s":
         d = output_simplify(api, query, count, page)
+    elif metatype == "u":
+        d = output_url(api, query, count, page)
 
     return d
 
