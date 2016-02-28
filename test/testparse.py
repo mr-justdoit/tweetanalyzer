@@ -39,12 +39,14 @@ def feature_extraction(texts):
         V5 = len(re.findall('\n', texts[i])) / V1
         V6 = len(re.findall(' ', texts[i])) / V1
         V7 = len(re.findall(
-            r'^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$',
+            r'(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?',
             texts[i]))
         V8 = len(re.findall('&gt;&gt;', texts[i]))
-        V9 = len(re.findall(r'[0-9]', texts[i]))/V1
-        V10 = len(re.findall(r'[a-zA-Z]', texts[i]))/V1
-        print("%s,%s,%s,%s,%s,%s,%s,%s,%s,%s" % (V1, V2, V3, V4, V5, V6, V7, V8, V9, V10))
+        V9 = len(re.findall('？', texts[i]))/V1
+        V10 = len(re.findall('！', texts[i]))/V1
+        V11 = len(re.findall(r'[wｗ]', texts[i]))/V1
+        print("%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s"
+              % (V1, V2, V3, V4, V5, V6, V7, V8, V9, V10, V11))
 
 
 def main():
