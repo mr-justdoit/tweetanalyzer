@@ -30,23 +30,59 @@ def output_regex(html, regex):
     return texts
 
 
-def feature_extraction(texts):
+def format_dt(metatexts):
+    for i in range(0, len(metatexts)):
+        metatexts[i] = re.sub(
+            r"([0-9][0-9][0-9][0-9])/([0-9][0-9])/([0-9][0-9])", r"\1-\2-\3",
+            metatexts[i])
+    return metatexts
+
+
+def month2num(month):
+    if month == '日':
+        return 0
+    elif month == '月':
+        return 1
+    elif month == '火':
+        return 2
+    elif month == '水':
+        return 3
+    elif month == '木':
+        return 4
+    elif month == '金':
+        return 5
+    elif month == '土':
+        return 6
+
+
+def feature_extraction(texts, metatexts):
+    metatexts = format_dt(metatexts)
     for i in range(0, len(texts)):
         V1 = len(texts[i])
         V2 = len(re.findall('、', texts[i])) / V1
-        V3 = len(re.findall('。', texts[i])) / V1
+        V3 = len(re.findall(r'。', texts[i])) / V1
         V4 = len(re.findall('\u3000', texts[i])) / V1
         V5 = len(re.findall('\n', texts[i])) / V1
         V6 = len(re.findall(' ', texts[i])) / V1
         V7 = len(re.findall(
             r'(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?',
             texts[i]))
+        texts[i] = re.sub(
+            r'(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?',
+            "", texts[i])
         V8 = len(re.findall('&gt;&gt;', texts[i]))
-        V9 = len(re.findall('？', texts[i]))/V1
-        V10 = len(re.findall('！', texts[i]))/V1
-        V11 = len(re.findall(r'[wｗ]', texts[i]))/V1
-        print("%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s"
-              % (V1, V2, V3, V4, V5, V6, V7, V8, V9, V10, V11))
+        V9 = len(re.findall('？', texts[i])) / V1
+        V10 = len(re.findall('！', texts[i])) / V1
+        V11 = len(re.findall(r'[wｗ]', texts[i])) / V1
+        V12 = int("green" not in metatexts[i])
+        V13 = re.findall(r'[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]',
+                         metatexts[i]).pop().split('-')[1]
+        V14 = re.findall(r'[0-9][0-9]:[0-9][0-9]:[0-9][0-9]',
+                         metatexts[i]).pop().split(':')[0]
+        V15 = month2num(re.findall(r'[日|月|火|水|木|金|土]', metatexts[i]).pop())
+        print(
+            "%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s" %
+            (V1, V2, V3, V4, V5, V6, V7, V8, V9, V10, V11, V12, V13, V14, V15))
 
 
 def main():
@@ -77,7 +113,10 @@ def main():
                 print(output_regex(html, r"<dd>.*"))
             elif a == "2":
                 texts = output_regex(html, r"<dd>.*")
-                feature_extraction(texts)
+                metatexts = output_regex(html, r"<dt>.*?<dd>")
+                feature_extraction(texts, metatexts)
+            elif a == "3":
+                print(output_regex(html, r"<dt>.*?<dd>"))
 
 
 if __name__ == "__main__":
