@@ -26,7 +26,7 @@ def output_regex(html, regex):
     for i in range(0, len(texts)):
         texts[i] = re.sub("<dd>", "", texts[i])
         texts[i] = re.sub("<br>", "\n", texts[i])
-        texts[i] = re.sub(r"<a.*?</a>", "", texts[i])
+        texts[i] = re.sub(r"<a.*?>(.*?)</a>", r"\1", texts[i])
     return texts
 
 
