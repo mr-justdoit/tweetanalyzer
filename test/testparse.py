@@ -1,5 +1,5 @@
 #!/usr/bin/python
-# coding: utf-8
+# coding:utf-8
 import urllib.request as urllib2
 import html2text
 import re
@@ -57,7 +57,7 @@ def feature_extraction(texts, metatexts):
         V9 = len(re.findall('？', texts[i])) / V1
         V10 = len(re.findall('！', texts[i])) / V1
         V11 = len(re.findall(r'[wｗ]', texts[i])) / V1
-        V12 = int("green" not in metatexts[i])
+        V12 = int("green" in metatexts[i])
 
         print(
             "%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s" %
@@ -80,7 +80,7 @@ def main():
     for o, a in opts:
         if o == "-u":
             url = a
-            html = str(urllib2.urlopen(url).read().decode('shift-jis'))
+            html = str(urllib2.urlopen(url).read().decode('shift-jis', 'ignore'))
             h = html2text.HTML2Text()
             text = h.handle(html)
 
