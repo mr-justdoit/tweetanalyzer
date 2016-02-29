@@ -58,10 +58,12 @@ def feature_extraction(texts, metatexts):
         V10 = len(re.findall('！', texts[i])) / V1
         V11 = len(re.findall(r'[wｗ]', texts[i])) / V1
         V12 = int("green" in metatexts[i])
-
-        print(
-            "%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s" %
-            (V1, V2, V3, V4, V5, V6, V7, V8, V9, V10, V11, V12))
+        V13 = re.findall(r'[0-9]{4}-[0-9]{2}-[0-9]{2}', metatexts[i]).pop()
+        V13 += ' '
+        V13 += re.findall(r'[0-9]{2}:[0-9]{2}:[0-9]{2}', metatexts[i]).pop()
+        V13 += ' JST'
+        print("%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s" %
+              (V1, V2, V3, V4, V5, V6, V7, V8, V9, V10, V11, V12, V13))
 
 
 def main():
@@ -80,7 +82,8 @@ def main():
     for o, a in opts:
         if o == "-u":
             url = a
-            html = str(urllib2.urlopen(url).read().decode('shift-jis', 'ignore'))
+            html = str(urllib2.urlopen(url).read().decode('shift-jis',
+                                                          'ignore'))
             h = html2text.HTML2Text()
             text = h.handle(html)
 
