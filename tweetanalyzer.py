@@ -89,6 +89,8 @@ def output_simplify(api, query, count, page):
     tweets = []
     d = ""
     for j in range(0, page):
+        if len(results["statuses"]) == 0:
+            return
         for i in range(0, len(results["statuses"])):
             d = results["statuses"][i]
             tweets.append({"id": d["id"],
